@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Post One through Seeder",
+        "slug": "post-one-through-seeder",
+        "excerpt": "Just a Excerpt..",
+        "description": "Just a Description..",
+        "is_published": true,
+        "min_to_read": 4
+    },
+    {
+        "title": "Post Two through Seeder",
+        "slug": "post-two-through-seeder",
+        "excerpt": "Just a Excerpt..",
+        "description": "Just a Description..",
+        "is_published": true,
+        "min_to_read": 4
+    }
+]
