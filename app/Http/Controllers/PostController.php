@@ -9,10 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Use scopePublished()
-        Post::published()->get();
-
-        // use scopeWithUserData()
-        Post::withUserData()->get();
+        // Use dynamic scopePublishedByUser()
+        Post::PublishedByUser(1)->get();
     }
 }
