@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = DB::table('posts')
-            ->orderBy('id')
-            ->cursorPaginate(10);
+        // Retrieve all models
+        Post::all();
 
-        return view('posts.index', compact('posts'));
+        // Retrieve the count of all Models
+        Post::all()->count();
+
+        // Paginate through the Query Builder
+        Post::paginate(25);
+        Post::simplePaginate(25);
+        Post::cursorPaginate(25);
     }
 }
