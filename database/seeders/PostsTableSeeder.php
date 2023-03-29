@@ -13,6 +13,27 @@ class PostsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(20)->create(); // php artisan db:seed --class=PostSeeder
+        $posts = collect([
+            [
+                'title' => 'Post One',
+                'slug' => 'post-one',
+                'excerpt' => 'Excerpt of Post One',
+                'description' => 'Description of Post One',
+                'is_published' => true,
+                'min_to_read' => 2
+            ],
+            [
+                'title' => 'Post Two',
+                'slug' => 'post-two',
+                'excerpt' => 'Excerpt of Post Two',
+                'description' => 'Description of Post Two',
+                'is_published' => true,
+                'min_to_read' => 2,
+            ]
+        ]);
+
+        $posts->each(function ($post) {
+            Post::create($post);
+        });
     }
 }
