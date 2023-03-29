@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = DB::table('posts')->paginate(10, ['*'], 'p', 4);
+        $posts = DB::table('posts')->simplePaginate(10);
 
         return view('posts.index', compact('posts'));
     }
