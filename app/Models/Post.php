@@ -8,37 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
     /*
-     Change table
-     protected $table = 'users';
-
-    Change primary key
-    protected $primaryKey = 'slug';
-
-    Disable auto increment of the primary key
-    public $incrementing = false;
-
-    Change data type of the primary key
-    protected $keyType = 'string';
-
-    Disable timestamps on a model
-    public $timestamps = false;
-
-    Change dateTime format of timestamps
-    public $timestamps = false;
-
-    Rename the created_at and updated_at
-    const CREATED_AT = 'date_created_at';
-    const UPDATED_AT = 'date_updated_at';
-
-    Add default attributes to your model (I recommend doing this on database-level
-    protected $attributes = [
-        "user_id" => 1,
-        "is_published" => false,
-        "description" => "Please add your description right here.."
+     The `$fillable` property is an array that lists the fields that are allowed to be mass assigned.
+     Any field not listed in the `$fillable` array will not be allowed to be mass assigned.
+     This is useful when you want to allow the user to set specific fields of the model.
+    */
+    protected $fillable = [
+        "user_id",
+        "title",
+        "slug",
+        "excerpt",
+        "description",
+        "is_published",
+        "min_to_read"
     ];
 
-    Change default database connection
-    protected $connection = 'sqlite';
+    /*
+     The $guarded property is an array that lists the fields that are not allowed to be mass assigned.
+     Any field not listed in the $guarded array will be allowed to be mass assigned.
+     This is useful when you want to prevent the user from setting specific fields of the model.
     */
+    protected $guarded = ['is_published'];
 }
