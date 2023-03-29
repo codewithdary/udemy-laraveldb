@@ -8,17 +8,50 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Retrieve based on the primary key (RETURNS NULL)
-        Post::find(1000);
+        // Model Instance
+        $post = new Post;
 
-        // Retrieve based on the primary key (RETURNS ERROR)
-        Post::findOrFail(1000);
+        $post->user_id = 17;
+        $post->title = "Test Title";
+        $post->slug = "test-title";
+        $post->excerpt = "woohoo";
+        $post->description = "Test";
+        $post->is_published = true;
+        $post->min_to_read = 3;
+        $post->save();
 
-        // Retrieve based on a condition
-        Post::where('slug', 'ullam-rerum-rem-esse-voluptatem-non-necessitatibus-iste-hic')->first();
-        Post::firstWhere('slug', 'est-cum-odit-tempora-voluptates-quis-eligendi');
+        // Using the fill() method
+        $post = new Post;
+        $post->fill([
+            "user_id" => 17,
+            "title" => "Fill method",
+            "slug" => "fill-method",
+            "excerpt" => "fill method",
+            "description" => "fill method",
+            "is_published" => true,
+            "min_to_read" => 3
+        ]);
 
-        // Retrieve a specific row based on a custom attribute
-        Post::where('slug', 'est-cum-odit-tempora-voluptates-quis-eligendi')->firstOrFail();
+        // Using Eloquent magic with the create() method
+        Post::create([
+            "user_id" => 17,
+            "title" => "Eloquent is Awesome",
+            "slug" => "eloquent-is-awesome",
+            "excerpt" => "Eloquent is awesome!!",
+            "description" => "Even more awesome!!",
+            "is_published" => true,
+            "min_to_read" => 3
+        ]);
+
+        // Using the make() method
+        Post::make([
+            "user_id" => 17,
+            "title" => "Eloquent is Awesome3",
+            "slug" => "eloquent-is-awesome3",
+            "excerpt" => "Eloquent is awesome!!",
+            "description" => "Even more awesome!!",
+            "is_published" => true,
+            "min_to_read" => 3
+        ]);
     }
 }
