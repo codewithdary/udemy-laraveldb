@@ -9,15 +9,25 @@ class PostController extends Controller
 {
     public function index()
     {
-        // whereFullText()
+        // one orderBy()
         DB::table('posts')
-            ->whereFullText('description', 'quo')
+            ->orderBy('title', 'desc')
             ->get();
 
-        // orWhereFullText()
+        // multiple orderBy() methods
         DB::table('posts')
-            ->whereFullText('description', 'quo')
-            ->orWhereFullText('description', 'Doloribus')
+            ->orderBy('title')
+            ->orderBy('min_to_read')
+            ->get();
+
+        // latest()
+        DB::table('posts')
+            ->latest()
+            ->get();
+
+        // oldest()
+        DB::table('posts')
+            ->oldest()
             ->get();
     }
 }
