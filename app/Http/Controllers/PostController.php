@@ -8,13 +8,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        // first()
-        DB::table('posts')->where('id', 2)->first();
+        // One Column
+        DB::table('posts')->pluck('title');
 
-        // value()
-        DB::table('posts')->where('id', 2)->value('excerpt');
-
-        // find()
-        DB::table('posts')->find(1);
+        // Multiple Columns
+        DB::table('posts')->pluck('title','description');
     }
 }
