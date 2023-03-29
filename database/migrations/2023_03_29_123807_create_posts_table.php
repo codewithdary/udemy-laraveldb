@@ -12,14 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug');
+            $table->id()->from(1000);
+            $table->string('title')
+                ->unique();;
+            $table->string('slug')
+                ->unique();;
             $table->longText('description');
-            $table->text('excerpt');
-            $table->boolean('is_published');
-            $table->integer('min_to_read');
+            $table->text('excerpt')
+                ->comment('Summary of Post');;
+            $table->boolean('is_published')
+                ->default(false);
+            $table->integer('min_to_read')
+                ->nullable();
             $table->timestamps();
+
+            // $table->unique('title');
+            // $table->unique(['title', 'slug']);
         });
     }
 
