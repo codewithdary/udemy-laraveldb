@@ -8,28 +8,30 @@ class PostController extends Controller
 {
     public function index()
     {
-        // isDirty()
-        $post = Post::find(1000);
-        $post->title = "Let's see if the isDity method works...";
+        // updateOrCreate()
+        $post = Post::updateOrCreate(
+            ['id' => 1000],
+            [
+                "user_id" => 17,
+                "title" => "updateOrCreate",
+                "slug" => "update-or-create",
+                "excerpt" => "Eloquent is awesome!!",
+                "description" => "Even more awesome!!",
+                "is_published" => true,
+                "min_to_read" => 3
+            ]
+        );
 
-        $post->isDirty(); // true
-        $post->isDirty('title'); // true
-        $post->isDirty('excerpt'); // false
-        $post->isDirty(['title', 'excerpt']); // true
-
-        // isClean()
-        $post = Post::find(1000);
-        $post->isClean(); //true
-
-        $post = Post::find(1000);
-        $post->title = "It's unclean now!";
-        $post->isClean(); // false
-        $post->isClean('title'); // false
-        $post->isClean(['title', 'excerpt']); // false
-
-        // wasChanged()
-        $post = Post::find(1000);
-        $post->title = "It's unclean now!";
-        $post->save();
+        // upsert()
+        Post::upsert([
+            "id" => 1000,
+            "user_id" => 17,
+            "title" => "Eloquent is Awesome",
+            "slug" => "eloquent-is-awesome",
+            "excerpt" => "Eloquent is awesome!!",
+            "description" => "Even more awesome!!",
+            "is_published" => true,
+            "min_to_read" => 3
+        ], ['id']);
     }
 }
