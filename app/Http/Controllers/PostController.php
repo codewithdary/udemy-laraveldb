@@ -9,18 +9,14 @@ class PostController extends Controller
 {
     public function index()
     {
-        // exists()
-        if(DB::table('posts')->where('id', 343543)->exists()) {
-            echo 'Woohoo, I found a match';
-        } else {
-            echo 'Ahh, I have not found a match';
-        }
+        // whereNot()
+        DB::table('posts')->whereNot('min_to_read', 1)->get();
+        DB::table('posts')->whereNot('min_to_read', '>', 1)->get();
 
-        // doesntExist()
-        if(DB::table('posts')->where('id', 343543)->doesntExist()) {
-            echo 'Woohoo, I found a match';
-        } else {
-            echo 'Ahh, I have not found a match';
-        }
+        // orWhereNot()
+        DB::table('posts')
+            ->where('min_to_read', '>', 5)
+            ->orWhereNot('is_published', true)
+            ->get();
     }
 }
