@@ -11,29 +11,18 @@ class PostController extends Controller
 {
     public function index()
     {
-        Job::create([
-            'title' => 'Junior Web Developer',
-            'description' => 'Test',
-            'user_id' => 5,
-            'active' => true
-        ]);
-        Job::create([
-            'title' => 'Medior Web Developer',
-            'description' => 'Test',
-            'user_id' => 5,
-            'active' => true
-        ]);
-        Job::create([
-            'title' => 'Senior Web Developer',
-            'description' => 'Test',
-            'user_id' => 5,
-            'active' => true
+        // Create Country
+        $country = Country::create([
+            'name' => 'Netherlands',
+            'code' => 'NL'
         ]);
 
-        // Get the latest job of a user
-        User::find(5)->latestJob()->get();
+        // Find a user and set country id
+        User::where('id', 5)->update([
+            'country_id' => $country->id
+        ]);
 
-        // Get the oldest job of a user
-        User::find(5)->oldestJob()->get();
+        // Eager load country with its associated posts
+        $country = Country::with('posts')->get();
     }
 }
