@@ -9,8 +9,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Retrieve without scope
-        User::withoutGlobalScopes()->get();
-        Post::withoutGlobalScopes()->get();
+        // Use scopePublished()
+        Post::published()->get();
+
+        // use scopeWithUserData()
+        Post::withUserData()->get();
     }
 }
