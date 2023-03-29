@@ -9,14 +9,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        // whereNot()
-        DB::table('posts')->whereNot('min_to_read', 1)->get();
-        DB::table('posts')->whereNot('min_to_read', '>', 1)->get();
+        // whereBetween()
+        DB::table('posts')->whereBetween('min_to_read', [1, 5])->get();
 
-        // orWhereNot()
-        DB::table('posts')
-            ->where('min_to_read', '>', 5)
-            ->orWhereNot('is_published', true)
-            ->get();
+        // whereNotBetween()
+        DB::table('posts')->whereNotBetween('min_to_read', [1, 5])->get();
+
     }
 }
