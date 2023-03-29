@@ -9,21 +9,18 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Count Rows
-        DB::table('posts')->count();
-        DB::table('posts')->where('is_published', true)->count();
+        // exists()
+        if(DB::table('posts')->where('id', 343543)->exists()) {
+            echo 'Woohoo, I found a match';
+        } else {
+            echo 'Ahh, I have not found a match';
+        }
 
-        // Sum
-        DB::table('posts')->sum('min_to_read');
-
-        // Average
-        DB::table('posts')->avg('min_to_read');
-        DB::table('posts')->where('is_published', true)->avg('min_to_read');
-
-        // Max
-        DB::table('posts')->where('is_published', true)->max('min_to_read');
-
-        // Min
-        DB::table('posts')->where('is_published', true)->min('min_to_read');
+        // doesntExist()
+        if(DB::table('posts')->where('id', 343543)->doesntExist()) {
+            echo 'Woohoo, I found a match';
+        } else {
+            echo 'Ahh, I have not found a match';
+        }
     }
 }
