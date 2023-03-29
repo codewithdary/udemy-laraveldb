@@ -8,15 +8,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Retrieve all models
-        Post::all();
-
-        // Retrieve the count of all Models
-        Post::all()->count();
-
-        // Paginate through the Query Builder
-        Post::paginate(25);
-        Post::simplePaginate(25);
-        Post::cursorPaginate(25);
+        Post::where('is_published', true)
+            ->where('min_to_read', '>', 5)
+            ->orderBy('title', 'desc')
+            ->get();
     }
 }
