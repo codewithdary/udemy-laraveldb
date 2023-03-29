@@ -12,6 +12,9 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes, Prunable;
 
+    /**
+     * @return void
+     */
     protected static function booted(): void
     {
         static::addGlobalScope(new PublishedWithinThirtyDaysScope());
@@ -37,5 +40,24 @@ class Post extends Model
     public function prunable(): Builder
     {
         return static::where('created_at', '<=', now()->subMonth());
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopePublished(Builder $query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    /**
+     * @param Builder $query
+     * @return mixed
+     */
+    public function scopeWithUserData(Builder $query)
+    {
+        return $query->join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.name', 'users.email');
     }
 }
