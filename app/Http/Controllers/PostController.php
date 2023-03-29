@@ -9,24 +9,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Create user & model with one instance
-        $user = User::create([
-            'name' => 'Code With Dary',
-            'email' => 'info@codewithdary.com',
-            'password' => 'Test1234!',
-        ]);
+        // Access individual attributes from relationship
+        $post = Post::find(1000);
+        $user = $post->user->name;
 
-        $user->contact()->create([
-            'address' => 'test',
-            'number' => 43,
-            'city' => 'Amsterdam',
-            'zip_code' => '48395db'
-        ]);
+        // Inverse (retrieves a collection because a user has many posts)
+        $user = User::find(5);
 
-        // Retrieve user with contact data
-        $user = User::with('contact')->find(5);
-
-        // Output contact data
-        $user->contact->address;
+        foreach($user->posts as $post) {
+            echo "Title: $post->title" . "\n";
+        }
     }
 }
