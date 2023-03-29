@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, Prunable;
+    use HasFactory, SoftDeletes, Prunable, PostScopes;
 
     /**
      * @return void
@@ -40,35 +40,5 @@ class Post extends Model
     public function prunable(): Builder
     {
         return static::where('created_at', '<=', now()->subMonth());
-    }
-
-    /**
-     * @param Builder $query
-     * @return mixed
-     */
-    public function scopePublished(Builder $query)
-    {
-        return $query->where('is_published', true);
-    }
-
-    /**
-     * @param Builder $query
-     * @return mixed
-     */
-    public function scopeWithUserData(Builder $query)
-    {
-        return $query->join('users', 'posts.user_id', '=', 'users.id')
-            ->select('posts.*', 'users.name', 'users.email');
-    }
-
-    /**
-     * @param Builder $query
-     * @param $userId
-     * @return mixed
-     */
-    public function scopePublishedByUser(Builder $query, $userId)
-    {
-        return $query->where('user_id', $userId)
-            ->whereNotNull('created_at');
     }
 }
