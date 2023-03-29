@@ -3,24 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
     public function index()
     {
-        // Delete one row
-        DB::table('posts')
-            ->where('id', 1017)
-            ->delete();
+        // Count Rows
+        DB::table('posts')->count();
+        DB::table('posts')->where('is_published', true)->count();
 
-        // Delete based on multiple conditions
-        DB::table('posts')
-            ->where('id', 1014)
-            ->where('title', 'x')
-            ->delete();
+        // Sum
+        DB::table('posts')->sum('min_to_read');
 
-        // Delete all records
-        DB::table('posts')
-            ->truncate();
+        // Average
+        DB::table('posts')->avg('min_to_read');
+        DB::table('posts')->where('is_published', true)->avg('min_to_read');
+
+        // Max
+        DB::table('posts')->where('is_published', true)->max('min_to_read');
+
+        // Min
+        DB::table('posts')->where('is_published', true)->min('min_to_read');
     }
 }
