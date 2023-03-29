@@ -8,33 +8,22 @@ class PostController extends Controller
 {
     public function index()
     {
-        // firstOrCreate()
-        Post::firstOrCreate([
-                'title' => 'Eloquent is Awesome'
-            ],
-            [
-                "user_id" => 17,
-                "title" => "firstOrCreate",
-                "slug" => "first-or-create",
-                "excerpt" => "Eloquent is awesome!!",
-                "description" => "Even more awesome!!",
-                "is_published" => true,
-                "min_to_read" => 3
-            ]
-        );
+        // Model Instance
+        $post = Post::find(1000); // assuming we want to update post with id 1
 
-        // firstOrNew()
-        Post::firstOrNew([
-                'title' => 'firstOrCreate3'
-            ],
-            [
-                "user_id" => 17,
-                "title" => "firstOrCreate NEW",
-                "slug" => "first-or-create NEW",
-                "excerpt" => "Eloquent is awesome!!",
-                "description" => "Even more awesome!!",
-                "is_published" => true,
-                "min_to_read" => 3
-            ]);
+        $post->title = "We have updated the title";
+        $post->description = "And also the description";
+        $post->save();
+
+        // Using Eloquent (update all rows)
+        Post::where()->update([
+            "excerpt" => "Updated through Eloquent",
+            "slug" => "we-have-updated-the-title"
+        ]);
+
+        // Using Eloquent (update a single row)
+        Post::where('is_published', false)->update([
+            "is_published" => true
+        ]);
     }
 }
