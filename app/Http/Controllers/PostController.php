@@ -9,25 +9,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        // one orderBy()
-        DB::table('posts')
-            ->orderBy('title', 'desc')
-            ->get();
+        // limit()
+        DB::table('posts')->limit(10)->get();
 
-        // multiple orderBy() methods
-        DB::table('posts')
-            ->orderBy('title')
-            ->orderBy('min_to_read')
-            ->get();
-
-        // latest()
-        DB::table('posts')
-            ->latest()
-            ->get();
-
-        // oldest()
-        DB::table('posts')
-            ->oldest()
-            ->get();
+        // offset()
+        DB::table('posts')->offset(10)->limit(10)->get();
     }
 }
