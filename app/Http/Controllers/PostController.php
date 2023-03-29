@@ -12,8 +12,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Retrieve latest & oldest image of user
-        $latestImage = User::find(5)->LatestImage();
-        $oldestImage = User::find(5)->oldestImage();
+        $tagIds = [1, 2, 3];
+        $post = Post::find(1000);
+
+        // Add data to many to many polymorphic
+        $post->tags()->attach($tagIds);
     }
 }
