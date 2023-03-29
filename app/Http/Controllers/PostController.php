@@ -12,11 +12,20 @@ class PostController extends Controller
         DB::transaction(function () {
             DB::table('users')
                 ->where('id', 1)
-                ->decrement('balance', 20);
+                ->lockForUpdate()
+                ->decrement('balance', 100);
 
             DB::table('users')
                 ->where('id', 2)
-                ->increment('balance', 20);
+                ->lockForUpdate()
+                ->increment('balance', 100);
+
+            /*
+             DB::table('users')
+              ->where('id', 1)
+              ->sharedLock()
+              ->decrement('balance', 100);
+             */
         });
 
     }
