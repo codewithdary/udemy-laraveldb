@@ -9,12 +9,17 @@ class PostController extends Controller
 {
     public function index()
     {
+        // lazy()
         DB::table('posts')
             ->orderBy('id')
-            ->chunk(150, function($posts) {
-                foreach ($posts as $post) {
-                    echo $post->title;
-                }
+            ->lazy()->each(function($post) {
+                echo $post->title;
             });
+
+        // lazilyById()
+        DB::table('posts')
+            ->where('id', 1)
+            ->lazyById()
+            ->first();
     }
 }
