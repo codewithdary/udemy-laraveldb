@@ -9,11 +9,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        // whereBetween()
-        DB::table('posts')->whereBetween('min_to_read', [1, 5])->get();
+        DB::transaction(function () {
+            DB::table('users')
+                ->where('id', 1)
+                ->decrement('balance', 20);
 
-        // whereNotBetween()
-        DB::table('posts')->whereNotBetween('min_to_read', [1, 5])->get();
+            DB::table('users')
+                ->where('id', 2)
+                ->increment('balance', 20);
+        });
 
     }
 }
