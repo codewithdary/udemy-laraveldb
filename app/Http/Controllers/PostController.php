@@ -11,22 +11,29 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Create a new Company
-        $company = Company::create([
-            'name' => 'Apple',
+        Job::create([
+            'title' => 'Junior Web Developer',
+            'description' => 'Test',
             'user_id' => 5,
+            'active' => true
+        ]);
+        Job::create([
+            'title' => 'Medior Web Developer',
+            'description' => 'Test',
+            'user_id' => 5,
+            'active' => true
+        ]);
+        Job::create([
+            'title' => 'Senior Web Developer',
+            'description' => 'Test',
+            'user_id' => 5,
+            'active' => true
         ]);
 
-        // Create a new Phone Number
-        PhoneNumber::create([
-            'number' => 48593953,
-            'company_id' => $company->id
-        ]);
+        // Get the latest job of a user
+        User::find(5)->latestJob()->get();
 
-        // Retrieve phone number of the company where the use works
-        $user = User::find(5)->companyPhoneNumber()->get();
-
-        // Use Eager Loading
-        $user = User::with('companyPhoneNumber')->get();
+        // Get the oldest job of a user
+        User::find(5)->oldestJob()->get();
     }
 }
