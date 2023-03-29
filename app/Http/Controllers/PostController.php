@@ -8,22 +8,28 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Model Instance
-        $post = Post::find(1000); // assuming we want to update post with id 1
+        // isDirty()
+        $post = Post::find(1000);
+        $post->title = "Let's see if the isDity method works...";
 
-        $post->title = "We have updated the title";
-        $post->description = "And also the description";
+        $post->isDirty(); // true
+        $post->isDirty('title'); // true
+        $post->isDirty('excerpt'); // false
+        $post->isDirty(['title', 'excerpt']); // true
+
+        // isClean()
+        $post = Post::find(1000);
+        $post->isClean(); //true
+
+        $post = Post::find(1000);
+        $post->title = "It's unclean now!";
+        $post->isClean(); // false
+        $post->isClean('title'); // false
+        $post->isClean(['title', 'excerpt']); // false
+
+        // wasChanged()
+        $post = Post::find(1000);
+        $post->title = "It's unclean now!";
         $post->save();
-
-        // Using Eloquent (update all rows)
-        Post::where()->update([
-            "excerpt" => "Updated through Eloquent",
-            "slug" => "we-have-updated-the-title"
-        ]);
-
-        // Using Eloquent (update a single row)
-        Post::where('is_published', false)->update([
-            "is_published" => true
-        ]);
     }
 }
