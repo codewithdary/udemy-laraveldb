@@ -8,14 +8,28 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Delete a single model
-        $post = Post::find(1080);
-        $post->delete();
+        // Create and replicate
+        $post = Post::create([
+            "user_id" => 17,
+            "title" => "Replicating Models",
+            "slug" => "replicating models",
+            "excerpt" => "This tutorial is about replicating content",
+            "description" => "This tutorial is about replicating content",
+            "is_published" => true,
+            "min_to_read" => 3
+        ]);
 
-        // Delete all records
-        Post::trunacte();
+        $newPost = $post->replicate()->fill([
+            "title" => "Replicated!!",
+            "slug" => "replicated"
+        ]);
 
-        // Delete multiple records
-        Post::destroy([1061, 1060]);
+        // Find and replicate
+        $post = Post::find(1084);
+
+        $post->replicate()->fill([
+            'title' => 'We have a new post ladies and gentlemen!',
+            'slug' => 'we-have-a-new-post-ladies-and-gentlemen'
+        ]);
     }
 }
