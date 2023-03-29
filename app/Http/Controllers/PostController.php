@@ -12,29 +12,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Retrieve post
-        $post = Post::find(1000);
-
-        // Create a new comment associated with a post using
-        $postComment = $post->comments()->create([
-            'body' => 'This is a new comment'
-        ]);
-
-        // Output all Comments of a Post
-        foreach($post->comments as $comment) {
-            echo $comment->body . "\n";
-        }
-
-        // Create Video
-        $video = Video::create([
-            'title' => 'John Wick 4',
-            'url' => 'I do not have a rip',
-            'description' => 'Keanu Reeves is awesome'
-        ]);
-
-        $videoComment = $video->comments()->create([
-            'body' => 'This is a new comment'
-        ]);
-
+        // Retrieve latest & oldest image of user
+        $latestImage = User::find(5)->LatestImage();
+        $oldestImage = User::find(5)->oldestImage();
     }
 }
