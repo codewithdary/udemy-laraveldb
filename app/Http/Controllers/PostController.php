@@ -8,30 +8,14 @@ class PostController extends Controller
 {
     public function index()
     {
-        // updateOrCreate()
-        $post = Post::updateOrCreate(
-            ['id' => 1000],
-            [
-                "user_id" => 17,
-                "title" => "updateOrCreate",
-                "slug" => "update-or-create",
-                "excerpt" => "Eloquent is awesome!!",
-                "description" => "Even more awesome!!",
-                "is_published" => true,
-                "min_to_read" => 3
-            ]
-        );
+        // Delete a single model
+        $post = Post::find(1080);
+        $post->delete();
 
-        // upsert()
-        Post::upsert([
-            "id" => 1000,
-            "user_id" => 17,
-            "title" => "Eloquent is Awesome",
-            "slug" => "eloquent-is-awesome",
-            "excerpt" => "Eloquent is awesome!!",
-            "description" => "Even more awesome!!",
-            "is_published" => true,
-            "min_to_read" => 3
-        ], ['id']);
+        // Delete all records
+        Post::trunacte();
+
+        // Delete multiple records
+        Post::destroy([1061, 1060]);
     }
 }
