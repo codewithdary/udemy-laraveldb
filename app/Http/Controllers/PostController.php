@@ -9,24 +9,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        DB::transaction(function () {
-            DB::table('users')
-                ->where('id', 1)
-                ->lockForUpdate()
-                ->decrement('balance', 100);
-
-            DB::table('users')
-                ->where('id', 2)
-                ->lockForUpdate()
-                ->increment('balance', 100);
-
-            /*
-             DB::table('users')
-              ->where('id', 1)
-              ->sharedLock()
-              ->decrement('balance', 100);
-             */
-        });
-
+        DB::table('posts')
+            ->orderBy('id')
+            ->chunk(150, function($posts) {
+                foreach ($posts as $post) {
+                    echo $post->title;
+                }
+            });
     }
 }
