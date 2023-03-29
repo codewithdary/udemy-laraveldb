@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -26,6 +27,9 @@ class Post extends Model
      Any field not listed in the `$fillable` array will not be allowed to be mass assigned.
      This is useful when you want to allow the user to set specific fields of the model.
     */
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         "user_id",
         "title",
@@ -52,8 +56,19 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function image(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

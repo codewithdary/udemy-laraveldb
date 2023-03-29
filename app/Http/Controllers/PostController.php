@@ -11,18 +11,17 @@ class PostController extends Controller
 {
     public function index()
     {
-        // Create Country
-        $country = Country::create([
-            'name' => 'Netherlands',
-            'code' => 'NL'
+        // Create Record
+        $user = User::find(5);
+        $post = Post::find(1000);
+
+        $userImage = $user->image()->create([
+            'url' => 'https://example.com/image.jpg'
         ]);
 
-        // Find a user and set country id
-        User::where('id', 5)->update([
-            'country_id' => $country->id
+        $postImage = $post->image()->create([
+            'url' => '<https://example.com/image.jpg>'
         ]);
 
-        // Eager load country with its associated posts
-        $country = Country::with('posts')->get();
     }
 }
