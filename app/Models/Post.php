@@ -23,11 +23,4 @@ class Post extends Model
         "is_published",
         "min_to_read"
     ];
-
-    /*
-     The $guarded property is an array that lists the fields that are not allowed to be mass assigned.
-     Any field not listed in the $guarded array will be allowed to be mass assigned.
-     This is useful when you want to prevent the user from setting specific fields of the model.
-    */
-    protected $guarded = ['is_published'];
 }
